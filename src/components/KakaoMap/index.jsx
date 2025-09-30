@@ -3,6 +3,10 @@ import useKakaoLoader from './useKakaoLoader';
 
 const KAKAO_KEY = process.env.REACT_APP_KAKAO_MAP_KEY;
 
+// Pin 이미지 URL
+const CURRENT_POS_IMG = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png";
+const STORE_POS_IMG = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_blue.png";
+
 export default function KakaoMap({
     initialCenter = { lat: 37.5665, lng: 126.9780 },
     level = 3
@@ -12,6 +16,7 @@ export default function KakaoMap({
 
     const mapRef = useRef(null);
     const currentMarkerRef = useRef(null);
+    const storeMarkersRef = useRef([]);
 
     useEffect(() => {
         if (!loaded || !window.kakao || !containerRef.current) return;
@@ -27,15 +32,11 @@ export default function KakaoMap({
             });
             mapRef.current = map;
 
-            // 현재 위치 마커 (빨간색)
-            const currentMarkerImage = new window.kakao.maps.MarkerImage(
-                "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
-                new window.kakao.maps.Size(35, 35)
-            );
+            // 현재 위치 마커 
             const currentMarker = new window.kakao.maps.Marker({
                 position: new window.kakao.maps.LatLng(lat, lng),
                 map: map,
-                image: currentMarkerImage
+                image: new window.kakao.maps.MarkerImage(CURRENT_POS_IMG, new window.kakao.maps.Size(35, 35))
             });
             currentMarkerRef.current = currentMarker;
 
@@ -43,37 +44,49 @@ export default function KakaoMap({
             window.setPins = (pins) => {
                 // pins: [{ id: 1, lat: 37.56, lng: 126.97 }, ...]
 
-                // 매장 pin (파란색)
-                const markerImage = new window.kakao.maps.MarkerImage(
-                    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_blue.png",
-                    new window.kakao.maps.Size(24, 35)
-                );
 
-                pins.forEach((pin) => {
-                    const marker = new window.kakao.maps.Marker({
-                        position: new window.kakao.maps.LatLng(pin.lat, pin.lng),
-                        map: map,
-                        image: markerImage
+                storeMarkersRef.current.forEach(m => m.setMap(null));
+                storeMarkersRef.current = [];
+
+                if (pins.length > 0) {
+                    const bounds = new window.kakao.maps.LatLngBounds();
+                    // 현재 위치도 bounds에 포함
+                    bounds.extend(currentMarker.getPosition());
+
+                    pins.forEach(pin => {
+                        const marker = new window.kakao.maps.Marker({
+                            position: new window.kakao.maps.LatLng(pin.lat, pin.lng),
+                            map: map,
+                            image: new window.kakao.maps.MarkerImage(STORE_POS_IMG, new window.kakao.maps.Size(24, 35))
+                        });
+
+                        window.kakao.maps.event.addListener(marker, 'click', () => {
+                            if (window.ReactNativeWebView?.postMessage) {
+                                window.ReactNativeWebView.postMessage(
+                                    JSON.stringify({ type: 'PIN_CLICK', payload: pin })
+                                );
+                            } else {
+                                console.log('[KakaoMap] PIN_CLICK', pin);
+                            }
+                        });
+
+                        bounds.extend(marker.getPosition());
+                        storeMarkersRef.current.push(marker);
                     });
 
-                    // marker 클릭 시 React Native로 이벤트 전달
-                    window.kakao.maps.event.addListener(marker, 'click', () => {
-                        if (window.ReactNativeWebView?.postMessage) {
-                            window.ReactNativeWebView.postMessage(
-                                JSON.stringify({ type: 'PIN_CLICK', payload: pin })
-                            );
-                        } else {
-                            console.log('[KakaoMap] PIN_CLICK', pin);
-                        }
-                    });
-                });
+                    map.setBounds(bounds); // 모든 마커가 화면에 보이도록
+                } else {
+                    // 매장 없으면 현재 위치 중심
+                    map.setCenter(currentMarker.getPosition());
+                    map.setLevel(level);
+                }
             };
 
             window.moveToCurrentLocation = (lat, lng) => {
                 if (!mapRef.current || !currentMarkerRef.current) return;
                 const position = new window.kakao.maps.LatLng(lat, lng);
-                mapRef.current.setCenter(position);
-                currentMarkerRef.current.setPosition(position);
+                map.setCenter(position);
+                currentMarker.setPosition(position);
             };
 
             if (window.ReactNativeWebView?.postMessage) {
