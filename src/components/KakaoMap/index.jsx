@@ -82,7 +82,7 @@ export default function KakaoMap({
                 console.log('[KakaoMap] READY');
             }
         });
-    }, [loaded]);
+    }, [loaded, initialCenter.lat, initialCenter.lng, level]);
 
 
     return <div ref={containerRef} style={{ width: '100%', height: '100vh' }} />;
