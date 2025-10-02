@@ -59,7 +59,7 @@ export default function KakaoMap({
                         const marker = new window.kakao.maps.Marker({
                             position: new window.kakao.maps.LatLng(pin.lat, pin.lng),
                             map: map,
-                            image: new window.kakao.maps.MarkerImage(STORE_POS_IMG, new window.kakao.maps.Size(24, 35))
+                            image: new window.kakao.maps.MarkerImage(STORE_POS_IMG, new window.kakao.maps.Size(35, 35))
                         });
 
                         window.kakao.maps.event.addListener(marker, 'click', () => {
