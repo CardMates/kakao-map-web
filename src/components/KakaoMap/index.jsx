@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import useKakaoLoader from './useKakaoLoader';
+import currentPosIcon from '../../assets/images/markers/pin_red.png';
+import storePosIcon from '../../assets/images/markers/pin_blue.png';
 
 const KAKAO_KEY = process.env.REACT_APP_KAKAO_MAP_KEY;
 
 // Pin 이미지 URL
-const CURRENT_POS_IMG = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png";
-const STORE_POS_IMG = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_blue.png";
+const CURRENT_POS_IMG = currentPosIcon;
+const STORE_POS_IMG = storePosIcon;
 
 export default function KakaoMap({
     initialCenter = { lat: 37.5665, lng: 126.9780 },
