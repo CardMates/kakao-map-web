@@ -58,8 +58,8 @@ export default function KakaoMap({
           stores.forEach((store) => {
             const marker = new window.kakao.maps.Marker({
               position: new window.kakao.maps.LatLng(
-                store.place.y,
-                store.place.x
+                Number(store.place.y),
+                Number(store.place.x)
               ),
               map: map,
               image: new window.kakao.maps.MarkerImage(
