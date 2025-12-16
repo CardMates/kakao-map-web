@@ -1,4 +1,4 @@
-# 💳 WiseCard
+# 💳 WiseCard - Map Webview
 
 > 본 리포지토리는 본 프로젝트의 구성 요소 중 Kakao Map 기반 웹 앱에 해당하는 전체 소스 코드 및 실행 환경을 포함합니다.
 > 해당 웹 앱은 WiseCard 모바일 앱 내 WebView 화면에서 사용하기 위한 목적으로 개발되었습니다.
@@ -95,10 +95,20 @@ npm install
 copy .env.example .env
 ```
 
+### 4. Kakao Developers 웹 도메인 등록
+
+본 프로젝트는 **Kakao Map API**를 사용하므로, 실행을 위해 **Kakao Developers 콘솔에 웹 도메인 등록이 필요합니다.**
+
+1. [Kakao Developers](https://developers.kakao.com/)에 접속하여 로그인합니다.
+2. 애플리케이션을 선택한 뒤 **[앱] → [제품링크관리] → [웹도메인]** 메뉴로 이동합니다.
+3. 본 웹 앱이 실행되는 도메인 주소를 등록합니다.  
+   (예: `http://localhost:3000`)
+4. 설정을 저장한 후 웹 앱을 실행합니다.
+
+> 웹 도메인이 등록되지 않은 경우, Kakao Map API가 정상적으로 동작하지 않을 수 있습니다.
+
 ### 5. 프로젝트 실행하기
 
 ```bash
  npm start
 ```
-
-[http://localhost:3000](http://localhost:3000)에서 실행중인 프로그램을 확인할 수 있습니다.
