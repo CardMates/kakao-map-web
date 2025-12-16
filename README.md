@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# 💳 WiseCard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 본 리포지토리는 본 프로젝트의 구성 요소 중 Kakao Map 기반 웹 앱에 해당하는 전체 소스 코드 및 실행 환경을 포함합니다.
+> 해당 웹 앱은 WiseCard 모바일 앱 내 WebView 화면에서 사용하기 위한 목적으로 개발되었습니다.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 1. 프로젝트 개요
 
-### `npm start`
+- **프로젝트 목적**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - LLM을 활용해 카드별 할인 및 혜택을 분석하고, 사용자 위치 기반 최적의 혜택 매장 및 사용 카드 추천 기능 제공
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **플랫폼**
 
-### `npm test`
+  - Android
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **개발 기간**
 
-### `npm run build`
+  - 2025.08 ~ 2025.12
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **팀 구성**
+  - FE: 1명 / BE: 2명
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 2. 기술 스택
 
-### `npm run eject`
+### Web App
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Framework: **React (Create React App 기반)**
+- Language: **JavaScript (ES6+)**
+- Build Tool: **react-scripts**
+- Routing: **React Router DOM**
+- State Management: **React Hooks (useState, useEffect)**
+- Testing: **React Testing Library + Jest**
+- Performance Metrics: **web-vitals**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### UI / UX
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- UI Components: **React 기본 컴포넌트**
+- Styling: **CSS**
+- DOM Rendering: **react-dom**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 3. Open Source / External Service 사용 내역
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Name                  | Usage                         | License                 |
+| --------------------- | ----------------------------- | ----------------------- |
+| React                 | UI framework                  | MIT                     |
+| React DOM             | DOM rendering                 | MIT                     |
+| React Router DOM      | Client-side routing           | MIT                     |
+| Create React App      | Project setup & build tooling | MIT                     |
+| react-scripts         | Development / build scripts   | MIT                     |
+| React Testing Library | Component testing             | MIT                     |
+| Jest DOM              | Custom Jest matchers          | MIT                     |
+| User Event            | User interaction testing      | MIT                     |
+| web-vitals            | Web performance metrics       | Apache-2.0              |
+| Kakao Map API         | Map rendering                 | Kakao Developers Policy |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 4. 실행 및 사용 방법
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+> 본 문서의 모든 명령어는 **Windows 환경**을 기준으로 작성되었으며, **CMD 또는 PowerShell**에서 실행하는 것을 기준으로 합니다.
 
-### Analyzing the Bundle Size
+### 1. Node.js 설치 확인 (2025-06-24 기준)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+최신 버전의 Node.js를 설치합니다.
+아래 명령어로 설치된 버전을 확인할 수 있습니다.
 
-### Making a Progressive Web App
+```bash
+ node -v
+  # v22.16.0
+ npm -v
+  # 10.2.4
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 2. 프로젝트 의존성 설치
 
-### Advanced Configuration
+git clone한 프로젝트 파일의 루트로 이동한 뒤, 아래 명령어를 입력하여 프로젝트 의존성을 설치합니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm install
+```
 
-### Deployment
+### 3. 환경 변수 설정
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+본 프로젝트는 실행을 위해 환경 변수 설정이 필요합니다.
 
-### `npm run build` fails to minify
+루트 디렉토리에 제공된 `.env.example` 파일을 복사하여 `.env` 파일을 생성한 뒤, 각 항목에 본인의 환경에 맞는 값을 입력합니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+copy .env.example .env
+```
+
+### 5. 프로젝트 실행하기
+
+```bash
+ npm start
+```
+
+[http://localhost:3000](http://localhost:3000)에서 실행중인 프로그램을 확인할 수 있습니다.
